@@ -4,6 +4,22 @@ Dynamically retrieving help pages inside a CEP panel from a Github repo. Why upd
 
 ## Usage
 
+```bash
+# npm run convert [name of folder]
+npm run convert key-minion
 ```
-npm run convert [name of folder]
+
+```js
+// Sometime before page render, like panel launch:
+const user = "Inventsable";
+const repo = "minion-pages";
+const file = "key-minion.json";
+let data = await fetch(
+  `https://raw.githubusercontent.com/${user}/${repo}/master/results/${file}`
+);
+
+let pageJSON = JSON.parse(data.text());
+console.log(pageJSON); // { pages: [ ... ], name: ... }
 ```
+
+![](https://thumbs.gfycat.com/DirtyCreepyIndianrockpython-size_restricted.gif)

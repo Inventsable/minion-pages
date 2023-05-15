@@ -74,4 +74,5 @@ module.exports = {
   readDir,
   readFile,
   exists,
+  isFolder,
 };

@@ -38,10 +38,14 @@ const init = async (): Promise<void> => {
 const getPagesArray = async (filepath: string): Promise<any[]> => {
   let list = await lib.readDir(filepath),
     result = [];
-  list.sort((a: string, b: string) => {
-    //@ts-ignore - Object is possibly null but we know it won't be
-    return Number(a.match(/^\d{1,}/)[0]) - Number(b.match(/^\d{1,}/)[0]);
-  });
+  list = list
+    .filter((a: string) => {
+      return !lib.isFolder(p.resolve(p.join(filepath, a))) && /^\d{1,}/.test(a);
+    })
+    .sort((a: string, b: string) => {
+      //@ts-ignore - Object is possibly null but we know it won't be
+      return Number(a.match(/^\d{1,}/)[0]) - Number(b.match(/^\d{1,}/)[0]);
+    });
   for (let file of list) {
     let temp = {} as fileObj;
     //@ts-ignore
